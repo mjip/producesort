@@ -16,7 +16,7 @@ from copy import deepcopy
 #im = ndi.gaussian_filter(im, 4)
 #im += 0.2 * np.random.random(im.shape)
 
-im = io.imread('clem1.jpeg')
+im = io.imread('img/good/top.jpg')
 im2 = deepcopy(im)
 
 #got rid of red, combined blue + green
@@ -30,6 +30,8 @@ im_grey = ndimage.gaussian_filter(im_grey, 2)
 edges2 = feature.canny(im_grey, sigma=3)
 
 mask2 = ndi.binary_fill_holes(edges2)
+
+# Applying mask to original image to subtract background
 
 for c in range(3):
 	im_edges2 = im2[:,:,c] * (mask2!=0)
