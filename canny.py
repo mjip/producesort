@@ -31,13 +31,17 @@ edges2 = feature.canny(im_grey, sigma=3)
 
 mask2 = ndi.binary_fill_holes(edges2)
 
-# Applying mask to original image to subtract background
+im_edges2 = deepcopy(im2)
+#for c in range(3):
+	#im_edges2 = im2[:,:,c] * mask2[:,:,0]
+for x in range(mask2.shape[0]):
+	for y in range(mask2.shape[1]):
+		if (mask2[x,y] == 0):
+			im_edges2[x,y] = im[x,y] * mask2[x,y]
 
-for c in range(3):
-	im_edges2 = im2[:,:,c] * (mask2!=0)
 
 # display results
-fig, (ax1, ax3) = plt.subplots(nrows=1, ncols=2, figsize=(8, 2),
+fig, (ax1, ax3) = plt.subplots(nrows=1, ncols=2, figsize=(8, 3),
                                     sharex=True, sharey=True)
 
 ax1.imshow(im2, cmap=plt.cm.gray)
