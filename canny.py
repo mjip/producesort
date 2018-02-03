@@ -5,6 +5,7 @@ from scipy import ndimage as ndi
 from skimage import io, feature, filters, data, color
 from skimage.color import rgb2gray
 from scipy import ndimage
+from copy import deepcopy
 
 
 # Generate noisy image of a square
@@ -15,34 +16,34 @@ from scipy import ndimage
 #im = ndi.gaussian_filter(im, 4)
 #im += 0.2 * np.random.random(im.shape)
 
-im = io.imread('img/good/top.jpg')
+im = io.imread('clem1.jpeg')
+im2 = deepcopy(im)
+
+#got rid of red, combined blue + green
 im[:,:,0] = 0
-im = rgb2gray(im)
-im = ndimage.gaussian_filter(im, 2)
-
-
-#im = io.imread('clem1.jpeg')
+im_grey = rgb2gray(im)
+im_grey = ndimage.gaussian_filter(im_grey, 2)
 
 # Compute the Canny filter for two values of sigma
 # image must be 2d
-edges1 = feature.canny(im)
-edges2 = feature.canny(im, sigma=3)
-edges1 = ndi.binary_fill_holes(edges1)
-edges2 = ndi.binary_fill_holes(edges2)
+
+edges2 = feature.canny(im_grey, sigma=3)
+
+mask2 = ndi.binary_fill_holes(edges2)
+
+for c in range(3):
+	im_edges2 = im2[:,:,c] * (mask2!=0)
 
 # display results
-fig, (ax1, ax2, ax3) = plt.subplots(nrows=1, ncols=3, figsize=(8, 3),
+fig, (ax1, ax3) = plt.subplots(nrows=1, ncols=2, figsize=(8, 2),
                                     sharex=True, sharey=True)
 
-ax1.imshow(im, cmap=plt.cm.gray)
+ax1.imshow(im2, cmap=plt.cm.gray)
 ax1.axis('off')
 ax1.set_title('noisy image', fontsize=20)
 
-ax2.imshow(edges1, cmap=plt.cm.gray)
-ax2.axis('off')
-ax2.set_title('Canny filter, $\sigma=1$', fontsize=20)
 
-ax3.imshow(edges2, cmap=plt.cm.gray)
+ax3.imshow(im_edges2, cmap=plt.cm.gray)
 ax3.axis('off')
 ax3.set_title('Canny filter, $\sigma=3$', fontsize=20)
 
