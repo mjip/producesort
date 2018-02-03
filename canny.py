@@ -2,28 +2,33 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy import ndimage as ndi
 
-from skimage import feature, io, filters, data, color
+from skimage import io, feature, filters, data, color
 from skimage.color import rgb2gray
+from scipy import ndimage
 
 
 # Generate noisy image of a square
-im = io.imread('img/test/unknown.png')
-# im = im[:, :, 1]
+#im = np.zeros((128, 128))
+#im[32:-32, 32:-32] = 1
 
-# Zeroing red channel and combining green and blue into grayscale
+#im = ndi.rotate(im, 15, mode='constant')
+#im = ndi.gaussian_filter(im, 4)
+#im += 0.2 * np.random.random(im.shape)
+
+im = io.imread('clem1.jpeg')
 im[:,:,0] = 0
 im = rgb2gray(im)
+im = ndimage.gaussian_filter(im, 2)
 
 
-# im[32:-32, 32:-32] = 1
-
-# im = ndi.rotate(im, 15, mode='constant')
-# im = ndi.gaussian_filter(im, 4)
-# im += 0.2 * np.random.random(im.shape)
+#im = io.imread('clem1.jpeg')
 
 # Compute the Canny filter for two values of sigma
+# image must be 2d
 edges1 = feature.canny(im)
 edges2 = feature.canny(im, sigma=3)
+edges1 = ndi.binary_fill_holes(edges1)
+edges2 = ndi.binary_fill_holes(edges2)
 
 # display results
 fig, (ax1, ax2, ax3) = plt.subplots(nrows=1, ncols=3, figsize=(8, 3),
