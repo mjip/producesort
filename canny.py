@@ -15,7 +15,7 @@ from scipy import ndimage
 #im = ndi.gaussian_filter(im, 4)
 #im += 0.2 * np.random.random(im.shape)
 
-im = io.imread('clem1.jpeg')
+im = io.imread('img/good/top.jpg')
 im[:,:,0] = 0
 im = rgb2gray(im)
 im = ndimage.gaussian_filter(im, 2)
