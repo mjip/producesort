@@ -1,7 +1,21 @@
 import matplotlib.pyplot as plt
 from canny import *
 
-filename = "img/bad/top.jpg"
+from tkinter import filedialog
+from tkinter import Tk
+
+# Root for this program
+root = Tk()
+root.withdraw()
+filename = filedialog.askopenfilename(initialdir="./img/",
+                                           title="Select file",
+                                           filetypes=(("jpeg files", "*.jpg"),
+                                                      ("all files", "*.*")))
+
+root.update()
+root.destroy()
+
+print(filename)
 
 mask = edge(filename)
 
@@ -12,12 +26,12 @@ fig, (ax1, ax3) = plt.subplots(nrows=1, ncols=2, figsize=(8, 3),
 
 ax1.imshow(mask, cmap=plt.cm.gray)
 ax1.axis('off')
-ax1.set_title('mask', fontsize=20)
+ax1.set_title('Edge mask', fontsize=20)
 
 
 ax3.imshow(im_no_back, cmap=plt.cm.gray)
 ax3.axis('off')
-ax3.set_title('No background, $\sigma=3$', fontsize=20)
+ax3.set_title('Background subtracted', fontsize=20)
 
 fig.tight_layout()
 
