@@ -17,7 +17,7 @@ def edge(filename):
         # Compute the Canny filter for two values of sigma
         # image must be 2d
 
-        edges = feature.canny(im_grey, sigma=6)
+        edges = feature.canny(im_grey, sigma=3)
 
         mask = ndi.binary_fill_holes(edges)
         return mask
@@ -31,25 +31,3 @@ def rm_back(mask, filename):
                         if (mask[x, y] == 0):
                                 no_back[x, y] = im[x, y] * mask[x, y]
         return no_back
-
-# Uncomment below lines to test output
-
-# import matplotlib.pyplot as plt
-
-# mask, im_edges = edge("img/good/top.jpg")
-
-# fig, (ax1, ax3) = plt.subplots(nrows=1, ncols=2, figsize=(8, 3),
-#                                     sharex=True, sharey=True)
-
-# ax1.imshow(mask, cmap=plt.cm.gray)
-# ax1.axis('off')
-# ax1.set_title('mask', fontsize=20)
-
-
-# ax3.imshow(im_edges, cmap=plt.cm.gray)
-# ax3.axis('off')
-# ax3.set_title('No background, $\sigma=3$', fontsize=20)
-
-# fig.tight_layout()
-
-# plt.show()
