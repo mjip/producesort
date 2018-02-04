@@ -8,7 +8,6 @@ from copy import deepcopy
 
 def edge(filename):
         im = io.imread(filename)
-        im_copy = deepcopy(im)
 
         # Zeroing red channel, combined blue + green channels into
         # single grayscale channel.
