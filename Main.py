@@ -16,8 +16,6 @@ filename = filedialog.askopenfilename(initialdir="./img/",
 root.update()
 root.destroy()
 
-print(filename)
-
 # Generate original image
 orig = img_open(filename)
 
