@@ -1,7 +1,11 @@
 import matplotlib.pyplot as plt
-from canny import edge
+from canny import *
 
-mask, im_edges = edge("/Users/johanan/Pictures/photos/Screencaps/unknown-1.png")
+filename = "img/bad/top.jpg"
+
+mask = edge(filename)
+
+im_no_back = rm_back(mask, filename)
 
 fig, (ax1, ax3) = plt.subplots(nrows=1, ncols=2, figsize=(8, 3),
                                sharex=True, sharey=True)
@@ -11,7 +15,7 @@ ax1.axis('off')
 ax1.set_title('mask', fontsize=20)
 
 
-ax3.imshow(im_edges, cmap=plt.cm.gray)
+ax3.imshow(im_no_back, cmap=plt.cm.gray)
 ax3.axis('off')
 ax3.set_title('No background, $\sigma=3$', fontsize=20)
 

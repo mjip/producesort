@@ -18,7 +18,7 @@ def edge(filename):
         # Compute the Canny filter for two values of sigma
         # image must be 2d
 
-        edges = feature.canny(im_grey, sigma=3)
+        edges = feature.canny(im_grey, sigma=6)
 
         mask = ndi.binary_fill_holes(edges)
         return mask
