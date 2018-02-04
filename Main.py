@@ -10,7 +10,7 @@ root.withdraw()
 filename = filedialog.askopenfilename(initialdir="./img/",
                                            title="Select file",
                                            filetypes=(("jpeg files", "*.jpg"),
-                                                      ("png files", "*.png")
+                                                      ("png files", "*.png"),
                                                       ("all files", "*.*")))
 
 root.update()
