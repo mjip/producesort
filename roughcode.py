@@ -1,22 +1,12 @@
-import numpy as np
 import matplotlib.pyplot as plt
 from scipy import ndimage as ndi
 from math import sqrt
 
-from skimage.feature import blob_dog, blob_log, blob_doh
-from skimage import io, feature, filters, data, color
+from skimage.feature import blob_dog
+from skimage import io, feature, color
 from skimage.color import rgb2gray
 from scipy import ndimage
 from copy import deepcopy
-
-
-# Generate noisy image of a square
-#im = np.zeros((128, 128))
-#im[32:-32, 32:-32] = 1
-
-#im = ndi.rotate(im, 15, mode='constant')
-#im = ndi.gaussian_filter(im, 4)
-#im += 0.2 * np.random.random(im.shape)
 
 im = io.imread('rot.jpg')
 im2 = deepcopy(im)
@@ -34,8 +24,6 @@ edges2 = feature.canny(im_grey, sigma=3)
 mask2 = ndi.binary_fill_holes(edges2) 
 
 im_edges2 = deepcopy(im2)
-
-#average_colour = [im2[:, :, i].mean() for i in range(im2.shape[-1])]
 
 for x in range(mask2.shape[0]):
 	for y in range(mask2.shape[1]):
@@ -55,25 +43,6 @@ def in_range(x, y):
 		return False
 
 
-#blobs_log = blob_log(im_grey, min_sigma=3, max_sigma=4, num_sigma=1, threshold=0.02)
-'''
-# display results
-# (image_6, min_sigma=3, max_sigma=4, num_sigma=1, threshold=0.0
-fig, (ax1, ax3) = plt.subplots(nrows=1, ncols=2, figsize=(8, 3),
-                                    sharex=True, sharey=True)
-
-ax1.imshow(im2, cmap=plt.cm.gray)
-ax1.axis('off')
-ax1.set_title('noisy image', fontsize=20)
-
-ax3.imshow(im_edges2, cmap=plt.cm.gray)
-ax3.axis('off')
-ax3.set_title('Canny filter, $\sigma=3$', fontsize=20)
-
-fig.tight_layout()
-
-plt.show() 
-'''
 
 im_edges2 = rgb2gray(im_edges2)
 
@@ -81,6 +50,7 @@ blobs_dog = blob_dog(im_edges2, min_sigma=2, threshold=0.6)
 blobs_dog[:, 2] = blobs_dog[:, 2] * sqrt(2)
 
 blobs_list = [blobs_dog]
+
 colors = ['lime']
 titles = ['Difference of Gaussian']
 sequence = zip(blobs_list, colors, titles)
