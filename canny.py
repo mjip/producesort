@@ -15,7 +15,6 @@ def edge(filename):
         im_grey = ndimage.gaussian_filter(rgb2gray(im), 2)
 
         # Compute the Canny filter for two values of sigma
-        # image must be 2d
 
         edges = feature.canny(im_grey, sigma=3)
 
