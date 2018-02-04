@@ -21,14 +21,17 @@ def edge(filename):
         edges = feature.canny(im_grey, sigma=3)
 
         mask = ndi.binary_fill_holes(edges)
+        return mask
 
-        im_edges = im_copy
+
+def rm_back(mask, filename):
+        im = io.imread(filename)
+        no_back = deepcopy(im)
         for x in range(mask.shape[0]):
                 for y in range(mask.shape[1]):
                         if (mask[x, y] == 0):
-                                im_edges[x, y] = im[x, y] * mask[x, y]
-        return mask, im_edges
-
+                                no_back[x, y] = im[x, y] * mask[x, y]
+        return no_back
 
 # Uncomment below lines to test output
 
