@@ -3,7 +3,7 @@
 A tool for determining if produce is rotten based on image recognition.
 ![screenshot](https://i.imgur.com/gQ01WgY.png)
 ![screenshot](https://i.imgur.com/85epnld.png)
-![screenshot](https://i.imgur.com/o1qcwa7.png)
+![screenshot](https://i.imgur.com/Cc0BA6H.png)
 ![screenshot](https://i.imgur.com/npTPwk1.png)
 ![screenshot](https://i.imgur.com/NFF2wIb.png)
 
